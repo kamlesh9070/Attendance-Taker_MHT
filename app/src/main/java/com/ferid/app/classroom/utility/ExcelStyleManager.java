@@ -69,6 +69,7 @@ public class ExcelStyleManager {
     public static CellStyle getContentCellStyle(Workbook wb) {
         CellStyle cellStyle = wb.createCellStyle();
 
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         Font font = wb.createFont();
         font.setFontHeightInPoints((short) 8);
