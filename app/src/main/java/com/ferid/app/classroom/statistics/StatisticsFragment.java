@@ -42,10 +42,11 @@ import com.ferid.app.classroom.model.Classroom;
 import com.ferid.app.classroom.utility.DirectoryUtility;
 import com.ferid.app.classroom.utility.ExcelStyleManager;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -231,20 +232,19 @@ public class StatisticsFragment extends Fragment {
     private void convertToExcel() {
         int length = classroomArrayList.size();
 
-        HSSFWorkbook wb = new HSSFWorkbook();
-        ExcelStyleManager excelStyleManager = new ExcelStyleManager();
+        Workbook wb = new HSSFWorkbook();
 
         for (int i = 0; i < length; i++) { //each sheet
             Classroom classroom = classroomArrayList.get(i);
 
-            HSSFSheet sheet = wb.createSheet(classroom.getName());
+            Sheet sheet = wb.createSheet(classroom.getName());
 
             //header
             HashMap<String, Integer> date_column_map = new HashMap<>();
             ArrayList<String> dates = new ArrayList<>();
             int rowNumber = 0;
             int colNumber = 1;
-            HSSFRow row = sheet.createRow(rowNumber);
+            Row row = sheet.createRow(rowNumber);
 
             //dates columns
             for (int j = 0; j < attendanceArrayList.size(); j++) {
@@ -253,8 +253,8 @@ public class StatisticsFragment extends Fragment {
                 if (classroom.getId() == attendance.getClassroomId()
                         && !dates.contains(attendance.getDateTime())) {
 
-                    HSSFCell cellDate = row.createCell(colNumber);
-                    cellDate.setCellStyle(excelStyleManager.getHeaderCellStyle(wb));
+                    Cell cellDate = row.createCell(colNumber);
+                    cellDate.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
 
                     cellDate.setCellValue(attendance.getDateTime());
 
@@ -285,8 +285,8 @@ public class StatisticsFragment extends Fragment {
                     if (!studentIds.contains(attendance.getStudentId())) { //another student
                         row = sheet.createRow(rowNumber);
 
-                        HSSFCell cellStudent = row.createCell(0);
-                        cellStudent.setCellStyle(excelStyleManager.getHeaderCellStyle(wb));
+                        Cell cellStudent = row.createCell(0);
+                        cellStudent.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
 
                         cellStudent.setCellValue(attendance.getStudentName());
 
@@ -310,8 +310,8 @@ public class StatisticsFragment extends Fragment {
 
                     row = sheet.getRow(rowNumber);
 
-                    HSSFCell cellPresence = row.createCell(colNumber);
-                    cellPresence.setCellStyle(excelStyleManager.getContentCellStyle(wb));
+                    Cell cellPresence = row.createCell(colNumber);
+                    cellPresence.setCellStyle(ExcelStyleManager.getContentCellStyle(wb));
 
                     cellPresence.setCellValue(attendance.getPresent());
                 }
@@ -327,7 +327,7 @@ public class StatisticsFragment extends Fragment {
      * Write into an excel file
      * @param wb
      */
-    private void writeIntoFile(HSSFWorkbook wb) {
+    private void writeIntoFile(Workbook wb) {
         boolean isFileOperationSuccessful = true;
 
         FileOutputStream fileOut = null;

@@ -16,86 +16,46 @@
 
 package com.ferid.app.classroom.utility;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Created by ferid.cafer on 7/13/2015.
  */
 public class ExcelStyleManager {
 
-    private static volatile HSSFCellStyle cellStyleHeader;
-    private static volatile HSSFCellStyle cellStyleContent;
-
-    public ExcelStyleManager() {
-        cellStyleHeader = null;
-        cellStyleContent = null;
-    }
-
-    /**
-     * Get header cell style
-     * @param wb
-     * @return
-     */
-    private static HSSFCellStyle getHeaderCellStyleInstance(HSSFWorkbook wb) {
-        if (cellStyleHeader == null) {
-            synchronized (ExcelStyleManager.class) {
-                if (cellStyleHeader == null) {
-                    cellStyleHeader = wb.createCellStyle();
-                }
-            }
-        }
-
-        return cellStyleHeader;
-    }
-
-    /**
-     * Get content cell style
-     * @param wb
-     * @return
-     */
-    private static HSSFCellStyle getContentCellStyleInstance(HSSFWorkbook wb) {
-        if (cellStyleContent == null) {
-            synchronized (ExcelStyleManager.class) {
-                if (cellStyleContent == null) {
-                    cellStyleContent = wb.createCellStyle();
-                }
-            }
-        }
-
-        return cellStyleContent;
-    }
-
     /**
      * Header cell style (dates)
-     * @param wb HSSFWorkbook
-     * @return HSSFCellStyle
+     * @param wb Workbook
+     * @return CellStyle
      */
-    public static HSSFCellStyle getHeaderCellStyle(HSSFWorkbook wb) {
-        HSSFCellStyle cellStyle = getHeaderCellStyleInstance(wb);
+    public static CellStyle getHeaderCellStyle(Workbook wb) {
+        CellStyle cellStyle = wb.createCellStyle();
 
-        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         Font font = wb.createFont();
         font.setFontHeightInPoints((short) 8);
-        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        font.setBold(true);
         cellStyle.setFont(font);
 
         cellStyle.setWrapText(true);
 
         cellStyle.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-        cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-        cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
         cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
         cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
         cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
 
         return cellStyle;
@@ -103,12 +63,12 @@ public class ExcelStyleManager {
 
     /**
      * Content cell style (presence)
-     * @return HSSFCellStyle
+     * @param wb Workbook
+     * @return CellStyle
      */
-    public static HSSFCellStyle getContentCellStyle(HSSFWorkbook wb) {
-        HSSFCellStyle cellStyle = getContentCellStyleInstance(wb);
+    public static CellStyle getContentCellStyle(Workbook wb) {
+        CellStyle cellStyle = wb.createCellStyle();
 
-        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 
         Font font = wb.createFont();
         font.setFontHeightInPoints((short) 8);
@@ -117,15 +77,15 @@ public class ExcelStyleManager {
         cellStyle.setWrapText(true);
 
         cellStyle.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
-        cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-        cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
         cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
         cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
         cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
 
         return cellStyle;
