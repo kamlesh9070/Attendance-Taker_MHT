@@ -77,7 +77,7 @@ public class ExcelStyleManager {
 
         cellStyle.setWrapText(true);
 
-        cellStyle.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+        cellStyle.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         cellStyle.setBorderRight(BorderStyle.THIN);
