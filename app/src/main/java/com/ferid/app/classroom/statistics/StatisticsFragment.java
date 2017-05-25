@@ -230,13 +230,12 @@ public class StatisticsFragment extends Fragment {
      * Converts all attendances into excel format
      */
     private void convertToExcel() {
-        int length = classroomArrayList.size();
-
+        //create workbook
         Workbook wb = new HSSFWorkbook();
 
-        for (int i = 0; i < length; i++) { //each sheet
-            Classroom classroom = classroomArrayList.get(i);
+        for (Classroom classroom : classroomArrayList) { //each sheet
 
+            //create sheet
             Sheet sheet = wb.createSheet(classroom.getName());
 
             //header
@@ -247,8 +246,7 @@ public class StatisticsFragment extends Fragment {
             Row row = sheet.createRow(rowNumber);
 
             //dates columns
-            for (int j = 0; j < attendanceArrayList.size(); j++) {
-                Attendance attendance = attendanceArrayList.get(j);
+            for (Attendance attendance : attendanceArrayList) {
 
                 if (classroom.getId() == attendance.getClassroomId()
                         && !dates.contains(attendance.getDateTime())) {
@@ -278,31 +276,29 @@ public class StatisticsFragment extends Fragment {
             HashMap<Integer, Integer> student_row_map = new HashMap<>();
             ArrayList<Integer> studentIds = new ArrayList<>();
             rowNumber = 1;
-            for (int j = 0; j < attendanceArrayList.size(); j++) {
-                Attendance attendance = attendanceArrayList.get(j);
+            for (Attendance attendance : attendanceArrayList) {
 
-                if (classroom.getId() == attendance.getClassroomId()) {
-                    if (!studentIds.contains(attendance.getStudentId())) { //another student
-                        row = sheet.createRow(rowNumber);
+                if (classroom.getId() == attendance.getClassroomId()
+                        && !studentIds.contains(attendance.getStudentId())) { //another student
 
-                        Cell cellStudent = row.createCell(0);
-                        cellStudent.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
+                    row = sheet.createRow(rowNumber);
 
-                        cellStudent.setCellValue(attendance.getStudentName());
+                    Cell cellStudent = row.createCell(0);
+                    cellStudent.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
 
-                        studentIds.add(attendance.getStudentId());
-                        student_row_map.put(attendance.getStudentId(), rowNumber);
+                    cellStudent.setCellValue(attendance.getStudentName());
 
-                        rowNumber++;
-                    }
+                    studentIds.add(attendance.getStudentId());
+                    student_row_map.put(attendance.getStudentId(), rowNumber);
+
+                    rowNumber++;
                 }
             }
 
             //now get column number from date columns
             //and get row number from student rows
             //match row-column pair and print into cell
-            for (int j = 0; j < attendanceArrayList.size(); j++) {
-                Attendance attendance = attendanceArrayList.get(j);
+            for (Attendance attendance : attendanceArrayList) {
 
                 if (classroom.getId() == attendance.getClassroomId()) {
                     rowNumber = student_row_map.get(attendance.getStudentId());
@@ -318,7 +314,9 @@ public class StatisticsFragment extends Fragment {
             }
         }
 
-        if (length > 0) writeIntoFile(wb);
+        if (classroomArrayList.size() > 0) {
+            writeIntoFile(wb);
+        }
 
         swipeRefreshLayout.setRefreshing(false);
     }
