@@ -145,7 +145,9 @@ public class PromptDialog extends Dialog {
 
     @Override
     public void show() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        try {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        } catch (Exception ignored) {}
 
         super.show();
     }
