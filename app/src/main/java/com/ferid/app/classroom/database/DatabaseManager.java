@@ -658,7 +658,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "INNER JOIN attendance " +
                 "ON classroomStudent.id = attendance.classroomstudent_id " +
                 "WHERE classroom.id = classroomStudent.classroom_id " +
-                "ORDER BY classroomStudent.classroom_id, classroomStudent.student_id";
+                "ORDER BY student.name";
 
         Cursor cursor = db.rawQuery(query, null);
 
