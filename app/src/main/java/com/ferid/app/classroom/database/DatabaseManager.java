@@ -293,7 +293,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String query = "SELECT student.id, student.name, classroomstudent.id FROM student " +
                 "INNER JOIN classroomstudent " +
                 "ON student.id = classroomstudent.student_id " +
-                "WHERE classroomstudent.classroom_id = ?";
+                "WHERE classroomstudent.classroom_id = ? " +
+                "ORDER BY student.name";
         Cursor cursor = db.rawQuery(query, new String[]{classroom_id});
 
         if (cursor.moveToFirst()) {
@@ -709,7 +710,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "ON classroomStudent.id = attendance.classroomstudent_id " +
                 "WHERE classroom.id = classroomStudent.classroom_id " +
                 "AND classroom.id = ? " +
-                "GROUP BY classroomStudent.student_id";
+                "GROUP BY classroomStudent.student_id " +
+                "ORDER BY student.name";
 
         Cursor cursor = db.rawQuery(query, new String[]{classroom_id});
 
