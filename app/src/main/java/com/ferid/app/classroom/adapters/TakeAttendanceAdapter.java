@@ -93,8 +93,10 @@ public class TakeAttendanceAdapter extends RecyclerView.Adapter<TakeAttendanceAd
 
         @Override
         public void onClick(View v) {
-            if (adapterClickListener != null) {
-                adapterClickListener.OnItemClick(getAdapterPosition());
+            final int position = getAdapterPosition();
+
+            if (adapterClickListener != null && position != RecyclerView.NO_POSITION) {
+                adapterClickListener.OnItemClick(position);
             }
         }
     }

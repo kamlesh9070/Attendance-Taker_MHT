@@ -86,8 +86,10 @@ public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.
 
         @Override
         public void onClick(View v) {
-            if (adapterClickListener != null) {
-                adapterClickListener.OnItemClick(getAdapterPosition());
+            final int position = getAdapterPosition();
+
+            if (adapterClickListener != null && position != RecyclerView.NO_POSITION) {
+                adapterClickListener.OnItemClick(position);
             }
         }
     }
