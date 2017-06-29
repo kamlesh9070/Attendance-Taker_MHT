@@ -238,6 +238,7 @@ public class StatisticsFragment extends Fragment {
     private void convertToExcel() {
         //create workbook
         Workbook wb = new HSSFWorkbook();
+        ExcelStyleManager excelStyleManager = new ExcelStyleManager();
 
         for (Classroom classroom : classroomArrayList) { //each sheet
 
@@ -258,7 +259,7 @@ public class StatisticsFragment extends Fragment {
                         && !dates.contains(attendance.getDateTime())) {
 
                     Cell cellDate = row.createCell(colNumber);
-                    cellDate.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
+                    cellDate.setCellStyle(excelStyleManager.getHeaderCellStyle(wb));
 
                     cellDate.setCellValue(attendance.getDateTime());
 
@@ -290,7 +291,7 @@ public class StatisticsFragment extends Fragment {
                     row = sheet.createRow(rowNumber);
 
                     Cell cellStudent = row.createCell(0);
-                    cellStudent.setCellStyle(ExcelStyleManager.getHeaderCellStyle(wb));
+                    cellStudent.setCellStyle(excelStyleManager.getHeaderCellStyle(wb));
 
                     cellStudent.setCellValue(attendance.getStudentName());
 
@@ -313,7 +314,7 @@ public class StatisticsFragment extends Fragment {
                     row = sheet.getRow(rowNumber);
 
                     Cell cellPresence = row.createCell(colNumber);
-                    cellPresence.setCellStyle(ExcelStyleManager.getContentCellStyle(wb));
+                    cellPresence.setCellStyle(excelStyleManager.getContentCellStyle(wb));
 
                     cellPresence.setCellValue(attendance.getPresent());
                 }

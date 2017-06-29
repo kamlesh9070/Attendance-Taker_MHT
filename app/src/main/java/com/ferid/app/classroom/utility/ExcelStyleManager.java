@@ -29,13 +29,55 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class ExcelStyleManager {
 
+    private static volatile CellStyle cellStyleHeader;
+    private static volatile CellStyle cellStyleContent;
+
+    public ExcelStyleManager() {
+        cellStyleHeader = null;
+        cellStyleContent = null;
+    }
+
+    /**
+     * Get header cell style
+     * @param wb
+     * @return
+     */
+    private static CellStyle getHeaderCellStyleInstance(Workbook wb) {
+        if (cellStyleHeader == null) {
+            synchronized (ExcelStyleManager.class) {
+                if (cellStyleHeader == null) {
+                    cellStyleHeader = wb.createCellStyle();
+                }
+            }
+        }
+
+        return cellStyleHeader;
+    }
+
+    /**
+     * Get content cell style
+     * @param wb
+     * @return
+     */
+    private static CellStyle getContentCellStyleInstance(Workbook wb) {
+        if (cellStyleContent == null) {
+            synchronized (ExcelStyleManager.class) {
+                if (cellStyleContent == null) {
+                    cellStyleContent = wb.createCellStyle();
+                }
+            }
+        }
+
+        return cellStyleContent;
+    }
+
     /**
      * Header cell style (dates)
      * @param wb Workbook
      * @return CellStyle
      */
-    public static CellStyle getHeaderCellStyle(Workbook wb) {
-        CellStyle cellStyle = wb.createCellStyle();
+    public CellStyle getHeaderCellStyle(Workbook wb) {
+        CellStyle cellStyle = getHeaderCellStyleInstance(wb);
 
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
@@ -66,8 +108,8 @@ public class ExcelStyleManager {
      * @param wb Workbook
      * @return CellStyle
      */
-    public static CellStyle getContentCellStyle(Workbook wb) {
-        CellStyle cellStyle = wb.createCellStyle();
+    public CellStyle getContentCellStyle(Workbook wb) {
+        CellStyle cellStyle = getContentCellStyleInstance(wb);
 
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
