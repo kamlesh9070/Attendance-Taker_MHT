@@ -68,7 +68,7 @@ public class EditStudentsAdapter extends RecyclerView.Adapter<EditStudentsAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         Student item = studentList.get(position);
 
         viewHolder.text.setText(item.getName());
@@ -77,7 +77,7 @@ public class EditStudentsAdapter extends RecyclerView.Adapter<EditStudentsAdapte
             @Override
             public void onClick(View v) {
                 if (listPopupWindow != null) {
-                    setListPopUpWindow(v, position);
+                    setListPopUpWindow(v, viewHolder.getAdapterPosition());
                 }
             }
         });

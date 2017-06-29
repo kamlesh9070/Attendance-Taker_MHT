@@ -78,7 +78,7 @@ public class EditClassroomsAdapter extends RecyclerView.Adapter<EditClassroomsAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         Classroom item = classroomList.get(position);
 
         viewHolder.text.setText(item.getName());
@@ -86,7 +86,7 @@ public class EditClassroomsAdapter extends RecyclerView.Adapter<EditClassroomsAd
             @Override
             public void onClick(View v) {
                 if (listPopupWindow != null) {
-                    setListPopUpWindow(v, position);
+                    setListPopUpWindow(v, viewHolder.getAdapterPosition());
                 }
             }
         });
