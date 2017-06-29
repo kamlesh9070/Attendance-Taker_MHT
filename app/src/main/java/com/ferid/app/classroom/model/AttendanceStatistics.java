@@ -33,6 +33,7 @@ public class AttendanceStatistics implements Parcelable {
 
     private String studentName;
 
+
     public AttendanceStatistics() {
         id = 0;
         classroomId = 0;
@@ -42,8 +43,6 @@ public class AttendanceStatistics implements Parcelable {
         attendedClasses = 0;
         studentName = "";
     }
-
-
 
     public int getId() {
         return id;
@@ -128,7 +127,7 @@ public class AttendanceStatistics implements Parcelable {
         }
     };
 
-    protected AttendanceStatistics(Parcel in) {
+    private AttendanceStatistics(Parcel in) {
         id = in.readInt();
         classroomId = in.readInt();
         studentId = in.readInt();

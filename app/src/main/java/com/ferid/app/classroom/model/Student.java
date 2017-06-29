@@ -24,7 +24,6 @@ public class Student {
     private String name;
     private boolean isPresent;
     private int classroomStudentId;
-    private String dateTime;
     private int attendanceId;
 
     public Student() {
@@ -32,7 +31,6 @@ public class Student {
         name = "";
         isPresent = false;
         classroomStudentId = 0;
-        dateTime = "";
         attendanceId = 0;
     }
 
@@ -68,14 +66,6 @@ public class Student {
         this.classroomStudentId = classroomStudentId;
     }
 
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public int getAttendanceId() {
         return attendanceId;
     }
@@ -83,4 +73,5 @@ public class Student {
     public void setAttendanceId(int attendanceId) {
         this.attendanceId = attendanceId;
     }
+
 }

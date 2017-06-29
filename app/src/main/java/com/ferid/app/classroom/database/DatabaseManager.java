@@ -585,7 +585,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String classroom_id = String.valueOf(classroomId);
         ArrayList<Student> list = new ArrayList<>();
 
-        String query = "SELECT attendance.id, attendance.date_time, " +
+        String query = "SELECT attendance.id, " +
                 "attendance.present, student.name " +
                 "FROM student " +
                 "INNER JOIN classroomStudent " +
@@ -600,10 +600,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
             do {
                 Student student = new Student();
                 student.setAttendanceId(cursor.getInt(0));
-                student.setDateTime(cursor.getString(1));
-                int isPresent = cursor.getInt(2);
+                int isPresent = cursor.getInt(1);
                 student.setPresent(isPresent==1);
-                student.setName(cursor.getString(3));
+                student.setName(cursor.getString(2));
 
                 list.add(student);
             } while (cursor.moveToNext());
